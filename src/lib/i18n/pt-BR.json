@@ -1,0 +1,124 @@
+{
+  "app": {
+    "name": "Sythera IA"
+  },
+  "nav": {
+    "library": "Biblioteca",
+    "social": "Rede Social",
+    "servers": "Servidores",
+    "create": "Criar Bot",
+    "profile": "Perfil"
+  },
+  "auth": {
+    "login": "Entrar",
+    "signup": "Criar Conta",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirmPassword": "Confirmar Senha",
+    "name": "Nome",
+    "dateOfBirth": "Data de Nascimento",
+    "gender": "Gênero",
+    "genderOptions": {
+      "male": "Masculino",
+      "female": "Feminino",
+      "nonBinary": "Não-binário",
+      "other": "Outro",
+      "preferNotToSay": "Prefiro não dizer"
+    },
+    "noAccount": "Não tem conta?",
+    "hasAccount": "Já tem conta?",
+    "signupHere": "Cadastre-se",
+    "loginHere": "Faça login",
+    "logout": "Sair",
+    "checkEmail": "Verifique seu e-mail para confirmar o cadastro.",
+    "errors": {
+      "invalidEmail": "E-mail inválido",
+      "shortPassword": "Senha deve ter pelo menos 6 caracteres",
+      "passwordMismatch": "Senhas não coincidem",
+      "nameRequired": "Nome é obrigatório",
+      "dobRequired": "Data de nascimento é obrigatória",
+      "generic": "Ocorreu um erro. Tente novamente."
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "bio": "Bio",
+    "editProfile": "Editar Perfil",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "settings": "Configurações",
+    "reputation": "Reputação",
+    "followers": "Seguidores"
+  },
+  "settings": {
+    "title": "Configurações",
+    "nsfwMode": "Modo 18+",
+    "nsfwDescription": "Habilitar conteúdo adulto (apenas para maiores de 18)",
+    "language": "Idioma",
+    "theme": "Tema",
+    "darkMode": "Modo Escuro",
+    "lightMode": "Modo Claro",
+    "deleteAccount": "Excluir Conta",
+    "deleteConfirm": "Tem certeza? Esta ação é irreversível."
+  },
+  "bots": {
+    "library": "Biblioteca de Bots",
+    "search": "Buscar bots...",
+    "create": "Criar Bot",
+    "noResults": "Nenhum bot encontrado",
+    "chat": "Conversar",
+    "by": "por"
+  },
+  "chat": {
+    "placeholder": "Digite uma mensagem...",
+    "send": "Enviar",
+    "regenerate": "Regenerar",
+    "edit": "Editar",
+    "delete": "Deletar",
+    "reset": "Reiniciar Chat",
+    "memory": "Memórias",
+    "diary": "Diário",
+    "phone": "Celular",
+    "thinking": "Pensando...",
+    "relationship": "Relacionamento"
+  },
+  "relationship": {
+    "burning": "Em Chamas",
+    "angry": "Irritado",
+    "distant": "Distante",
+    "acquaintance": "Conhecido",
+    "friend": "Amigo",
+    "crush": "Paixão",
+    "lover": "Amante",
+    "partner": "Parceiro"
+  },
+  "servers": {
+    "title": "Servidores",
+    "create": "Criar Servidor",
+    "join": "Entrar",
+    "leave": "Sair",
+    "members": "Membros",
+    "settings": "Configurações",
+    "groupChat": "Chat do Grupo",
+    "privateMessages": "Mensagens Privadas"
+  },
+  "social": {
+    "feed": "Feed",
+    "newPost": "Nova Publicação",
+    "comment": "Comentar",
+    "comments": "Comentários",
+    "react": "Reagir",
+    "share": "Compartilhar"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "done": "Concluído",
+    "report": "Denunciar"
+  }
+}
