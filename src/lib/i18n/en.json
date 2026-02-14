@@ -1,0 +1,124 @@
+{
+  "app": {
+    "name": "Sythera AI"
+  },
+  "nav": {
+    "library": "Library",
+    "social": "Social",
+    "servers": "Servers",
+    "create": "Create Bot",
+    "profile": "Profile"
+  },
+  "auth": {
+    "login": "Sign In",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "genderOptions": {
+      "male": "Male",
+      "female": "Female",
+      "nonBinary": "Non-binary",
+      "other": "Other",
+      "preferNotToSay": "Prefer not to say"
+    },
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signupHere": "Sign up",
+    "loginHere": "Sign in",
+    "logout": "Sign Out",
+    "checkEmail": "Check your email to confirm your account.",
+    "errors": {
+      "invalidEmail": "Invalid email",
+      "shortPassword": "Password must be at least 6 characters",
+      "passwordMismatch": "Passwords don't match",
+      "nameRequired": "Name is required",
+      "dobRequired": "Date of birth is required",
+      "generic": "An error occurred. Please try again."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "bio": "Bio",
+    "editProfile": "Edit Profile",
+    "save": "Save",
+    "cancel": "Cancel",
+    "settings": "Settings",
+    "reputation": "Reputation",
+    "followers": "Followers"
+  },
+  "settings": {
+    "title": "Settings",
+    "nsfwMode": "18+ Mode",
+    "nsfwDescription": "Enable adult content (18+ only)",
+    "language": "Language",
+    "theme": "Theme",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "deleteAccount": "Delete Account",
+    "deleteConfirm": "Are you sure? This action is irreversible."
+  },
+  "bots": {
+    "library": "Bot Library",
+    "search": "Search bots...",
+    "create": "Create Bot",
+    "noResults": "No bots found",
+    "chat": "Chat",
+    "by": "by"
+  },
+  "chat": {
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "regenerate": "Regenerate",
+    "edit": "Edit",
+    "delete": "Delete",
+    "reset": "Reset Chat",
+    "memory": "Memories",
+    "diary": "Diary",
+    "phone": "Phone",
+    "thinking": "Thinking...",
+    "relationship": "Relationship"
+  },
+  "relationship": {
+    "burning": "Burning",
+    "angry": "Angry",
+    "distant": "Distant",
+    "acquaintance": "Acquaintance",
+    "friend": "Friend",
+    "crush": "Crush",
+    "lover": "Lover",
+    "partner": "Partner"
+  },
+  "servers": {
+    "title": "Servers",
+    "create": "Create Server",
+    "join": "Join",
+    "leave": "Leave",
+    "members": "Members",
+    "settings": "Settings",
+    "groupChat": "Group Chat",
+    "privateMessages": "Private Messages"
+  },
+  "social": {
+    "feed": "Feed",
+    "newPost": "New Post",
+    "comment": "Comment",
+    "comments": "Comments",
+    "react": "React",
+    "share": "Share"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "report": "Report"
+  }
+}
