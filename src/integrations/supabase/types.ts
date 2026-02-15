@@ -14,31 +14,34 @@ export type Database = {
   }
   public: {
     Tables: {
-      bot_npcs: {
+      bot_phone_events: {
         Row: {
           bot_id: string
-          description: string | null
+          content: string | null
+          created_at: string | null
+          event_type: Database["public"]["Enums"]["phone_event_type"]
           id: string
-          name: string
-          relationship: string | null
+          image_url: string | null
         }
         Insert: {
           bot_id: string
-          description?: string | null
+          content?: string | null
+          created_at?: string | null
+          event_type: Database["public"]["Enums"]["phone_event_type"]
           id?: string
-          name: string
-          relationship?: string | null
+          image_url?: string | null
         }
         Update: {
           bot_id?: string
-          description?: string | null
+          content?: string | null
+          created_at?: string | null
+          event_type?: Database["public"]["Enums"]["phone_event_type"]
           id?: string
-          name?: string
-          relationship?: string | null
+          image_url?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "bot_npcs_bot_id_fkey"
+            foreignKeyName: "bot_phone_events_bot_id_fkey"
             columns: ["bot_id"]
             isOneToOne: false
             referencedRelation: "bots"
@@ -48,102 +51,198 @@ export type Database = {
       }
       bots: {
         Row: {
+          auto_status_config: Json | null
           avatar_url: string | null
+          charm_contrast: string | null
           created_at: string | null
           creator_id: string
-          creator_note: string | null
+          dislikes: string | null
           first_message: string | null
-          followers_fake: number | null
-          gender: string | null
-          history: string | null
+          hidden_habits: string | null
           id: string
-          is_public: boolean | null
-          life_experience: string | null
+          intro: string | null
+          likes: string | null
           name: string
-          nsfw: boolean | null
-          personality_json: Json | null
-          personality_type: string | null
-          reputation: number | null
+          opening_story: string | null
+          personality: string | null
+          privacy: Database["public"]["Enums"]["bot_privacy"] | null
+          relationship_with_user: string | null
           slogan: string | null
-          speech_style: string | null
-          status_config: Json | null
-          tags: string[] | null
+          total_chats: number | null
+          total_likes: number | null
+          updated_at: string | null
+          web_access_enabled: boolean | null
         }
         Insert: {
+          auto_status_config?: Json | null
           avatar_url?: string | null
+          charm_contrast?: string | null
           created_at?: string | null
           creator_id: string
-          creator_note?: string | null
+          dislikes?: string | null
           first_message?: string | null
-          followers_fake?: number | null
-          gender?: string | null
-          history?: string | null
+          hidden_habits?: string | null
           id?: string
-          is_public?: boolean | null
-          life_experience?: string | null
-          name: string
-          nsfw?: boolean | null
-          personality_json?: Json | null
-          personality_type?: string | null
-          reputation?: number | null
+          intro?: string | null
+          likes?: string | null
+          name?: string
+          opening_story?: string | null
+          personality?: string | null
+          privacy?: Database["public"]["Enums"]["bot_privacy"] | null
+          relationship_with_user?: string | null
           slogan?: string | null
-          speech_style?: string | null
-          status_config?: Json | null
-          tags?: string[] | null
+          total_chats?: number | null
+          total_likes?: number | null
+          updated_at?: string | null
+          web_access_enabled?: boolean | null
         }
         Update: {
+          auto_status_config?: Json | null
           avatar_url?: string | null
+          charm_contrast?: string | null
           created_at?: string | null
           creator_id?: string
-          creator_note?: string | null
+          dislikes?: string | null
           first_message?: string | null
-          followers_fake?: number | null
-          gender?: string | null
-          history?: string | null
+          hidden_habits?: string | null
           id?: string
-          is_public?: boolean | null
-          life_experience?: string | null
+          intro?: string | null
+          likes?: string | null
           name?: string
-          nsfw?: boolean | null
-          personality_json?: Json | null
-          personality_type?: string | null
-          reputation?: number | null
+          opening_story?: string | null
+          personality?: string | null
+          privacy?: Database["public"]["Enums"]["bot_privacy"] | null
+          relationship_with_user?: string | null
           slogan?: string | null
-          speech_style?: string | null
-          status_config?: Json | null
-          tags?: string[] | null
+          total_chats?: number | null
+          total_likes?: number | null
+          updated_at?: string | null
+          web_access_enabled?: boolean | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "bots_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversation_history: {
+        Row: {
+          bot_id: string
+          conversation_id: string
+          id: string
+          last_message_preview: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          bot_id: string
+          conversation_id: string
+          id?: string
+          last_message_preview?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          bot_id?: string
+          conversation_id?: string
+          id?: string
+          last_message_preview?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_history_bot_id_fkey"
+            columns: ["bot_id"]
+            isOneToOne: false
+            referencedRelation: "bots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversation_history_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversation_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       conversations: {
         Row: {
-          auto_memory_json: Json | null
+          affinity_score: number | null
           bot_id: string
           created_at: string | null
           id: string
-          manual_memory_json: Json | null
-          mode: Database["public"]["Enums"]["chat_mode"] | null
-          relationship_points: number | null
+          persona_id: string | null
+          updated_at: string | null
           user_id: string
         }
         Insert: {
-          auto_memory_json?: Json | null
+          affinity_score?: number | null
           bot_id: string
           created_at?: string | null
           id?: string
-          manual_memory_json?: Json | null
-          mode?: Database["public"]["Enums"]["chat_mode"] | null
-          relationship_points?: number | null
+          persona_id?: string | null
+          updated_at?: string | null
           user_id: string
         }
         Update: {
-          auto_memory_json?: Json | null
+          affinity_score?: number | null
           bot_id?: string
           created_at?: string | null
           id?: string
-          manual_memory_json?: Json | null
-          mode?: Database["public"]["Enums"]["chat_mode"] | null
-          relationship_points?: number | null
+          persona_id?: string | null
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
@@ -154,6 +253,188 @@ export type Database = {
             referencedRelation: "bots"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "conversations_persona_id_fkey"
+            columns: ["persona_id"]
+            isOneToOne: false
+            referencedRelation: "personas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      diaries: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          mood: string | null
+          related_bot_id: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          mood?: string | null
+          related_bot_id?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          mood?: string | null
+          related_bot_id?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "diaries_related_bot_id_fkey"
+            columns: ["related_bot_id"]
+            isOneToOne: false
+            referencedRelation: "bots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "diaries_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      images: {
+        Row: {
+          created_at: string | null
+          id: string
+          owner_id: string
+          type: Database["public"]["Enums"]["image_type"]
+          url: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          owner_id: string
+          type: Database["public"]["Enums"]["image_type"]
+          url: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          owner_id?: string
+          type?: Database["public"]["Enums"]["image_type"]
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "images_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      internal_thoughts: {
+        Row: {
+          bot_id: string
+          content: string
+          created_at: string | null
+          id: string
+          message_id: string
+          visible_to_user: boolean | null
+        }
+        Insert: {
+          bot_id: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          message_id: string
+          visible_to_user?: boolean | null
+        }
+        Update: {
+          bot_id?: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          message_id?: string
+          visible_to_user?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "internal_thoughts_bot_id_fkey"
+            columns: ["bot_id"]
+            isOneToOne: false
+            referencedRelation: "bots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "internal_thoughts_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      likes: {
+        Row: {
+          bot_id: string | null
+          created_at: string | null
+          id: string
+          post_id: string | null
+          user_id: string
+        }
+        Insert: {
+          bot_id?: string | null
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          user_id: string
+        }
+        Update: {
+          bot_id?: string | null
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_bot_id_fkey"
+            columns: ["bot_id"]
+            isOneToOne: false
+            referencedRelation: "bots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
         ]
       }
       messages: {
@@ -161,25 +442,34 @@ export type Database = {
           content: string
           conversation_id: string
           created_at: string | null
+          edited: boolean | null
           id: string
-          message_type: string | null
+          image_url: string | null
+          message_type: Database["public"]["Enums"]["message_type"] | null
           sender_type: Database["public"]["Enums"]["sender_type"]
+          updated_at: string | null
         }
         Insert: {
           content?: string
           conversation_id: string
           created_at?: string | null
+          edited?: boolean | null
           id?: string
-          message_type?: string | null
+          image_url?: string | null
+          message_type?: Database["public"]["Enums"]["message_type"] | null
           sender_type: Database["public"]["Enums"]["sender_type"]
+          updated_at?: string | null
         }
         Update: {
           content?: string
           conversation_id?: string
           created_at?: string | null
+          edited?: boolean | null
           id?: string
-          message_type?: string | null
+          image_url?: string | null
+          message_type?: Database["public"]["Enums"]["message_type"] | null
           sender_type?: Database["public"]["Enums"]["sender_type"]
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -191,368 +481,140 @@ export type Database = {
           },
         ]
       }
-      post_comments: {
+      personas: {
         Row: {
-          author_id: string
-          author_type: Database["public"]["Enums"]["author_type"]
-          content: string
+          auto_status: string | null
+          avatar_url: string | null
           created_at: string | null
+          emotional_triggers: string | null
           id: string
-          post_id: string
-        }
-        Insert: {
-          author_id: string
-          author_type?: Database["public"]["Enums"]["author_type"]
-          content?: string
-          created_at?: string | null
-          id?: string
-          post_id: string
-        }
-        Update: {
-          author_id?: string
-          author_type?: Database["public"]["Enums"]["author_type"]
-          content?: string
-          created_at?: string | null
-          id?: string
-          post_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "post_comments_post_id_fkey"
-            columns: ["post_id"]
-            isOneToOne: false
-            referencedRelation: "posts"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      post_reactions: {
-        Row: {
-          created_at: string | null
-          id: string
-          post_id: string
-          reaction: Database["public"]["Enums"]["reaction_type"]
+          important_memories: string | null
+          name: string
+          personality: string | null
+          public_description: string | null
+          speech_style: string | null
+          updated_at: string | null
           user_id: string
         }
         Insert: {
+          auto_status?: string | null
+          avatar_url?: string | null
           created_at?: string | null
+          emotional_triggers?: string | null
           id?: string
-          post_id: string
-          reaction?: Database["public"]["Enums"]["reaction_type"]
+          important_memories?: string | null
+          name?: string
+          personality?: string | null
+          public_description?: string | null
+          speech_style?: string | null
+          updated_at?: string | null
           user_id: string
         }
         Update: {
+          auto_status?: string | null
+          avatar_url?: string | null
           created_at?: string | null
+          emotional_triggers?: string | null
           id?: string
-          post_id?: string
-          reaction?: Database["public"]["Enums"]["reaction_type"]
+          important_memories?: string | null
+          name?: string
+          personality?: string | null
+          public_description?: string | null
+          speech_style?: string | null
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "post_reactions_post_id_fkey"
-            columns: ["post_id"]
+            foreignKeyName: "personas_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "posts"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
       }
       posts: {
         Row: {
-          author_id: string
-          author_type: Database["public"]["Enums"]["author_type"]
-          content: string
+          bot_id: string | null
+          content_text: string
           created_at: string | null
+          creator_id: string
           id: string
           image_url: string | null
-          reputation_delta: number | null
+          updated_at: string | null
         }
         Insert: {
-          author_id: string
-          author_type?: Database["public"]["Enums"]["author_type"]
-          content?: string
+          bot_id?: string | null
+          content_text?: string
           created_at?: string | null
+          creator_id: string
           id?: string
           image_url?: string | null
-          reputation_delta?: number | null
+          updated_at?: string | null
         }
         Update: {
-          author_id?: string
-          author_type?: Database["public"]["Enums"]["author_type"]
-          content?: string
+          bot_id?: string | null
+          content_text?: string
           created_at?: string | null
+          creator_id?: string
           id?: string
           image_url?: string | null
-          reputation_delta?: number | null
-        }
-        Relationships: []
-      }
-      private_messages: {
-        Row: {
-          content: string
-          created_at: string | null
-          id: string
-          receiver_id: string
-          sender_id: string
-        }
-        Insert: {
-          content?: string
-          created_at?: string | null
-          id?: string
-          receiver_id: string
-          sender_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string | null
-          id?: string
-          receiver_id?: string
-          sender_id?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          bio: string | null
-          created_at: string | null
-          date_of_birth: string
-          email: string
-          followers_fake: number | null
-          gender: string | null
-          id: string
-          name: string
-          nsfw_enabled: boolean | null
-          preferred_language: string | null
-          reputation_global: number | null
-          user_id: string
-        }
-        Insert: {
-          avatar_url?: string | null
-          bio?: string | null
-          created_at?: string | null
-          date_of_birth: string
-          email?: string
-          followers_fake?: number | null
-          gender?: string | null
-          id?: string
-          name?: string
-          nsfw_enabled?: boolean | null
-          preferred_language?: string | null
-          reputation_global?: number | null
-          user_id: string
-        }
-        Update: {
-          avatar_url?: string | null
-          bio?: string | null
-          created_at?: string | null
-          date_of_birth?: string
-          email?: string
-          followers_fake?: number | null
-          gender?: string | null
-          id?: string
-          name?: string
-          nsfw_enabled?: boolean | null
-          preferred_language?: string | null
-          reputation_global?: number | null
-          user_id?: string
-        }
-        Relationships: []
-      }
-      reports: {
-        Row: {
-          created_at: string | null
-          id: string
-          reason: string
-          reporter_id: string
-          status: Database["public"]["Enums"]["report_status"] | null
-          target_id: string
-          target_type: Database["public"]["Enums"]["report_target_type"]
-        }
-        Insert: {
-          created_at?: string | null
-          id?: string
-          reason?: string
-          reporter_id: string
-          status?: Database["public"]["Enums"]["report_status"] | null
-          target_id: string
-          target_type: Database["public"]["Enums"]["report_target_type"]
-        }
-        Update: {
-          created_at?: string | null
-          id?: string
-          reason?: string
-          reporter_id?: string
-          status?: Database["public"]["Enums"]["report_status"] | null
-          target_id?: string
-          target_type?: Database["public"]["Enums"]["report_target_type"]
-        }
-        Relationships: []
-      }
-      server_bots: {
-        Row: {
-          bot_id: string
-          id: string
-          server_id: string
-        }
-        Insert: {
-          bot_id: string
-          id?: string
-          server_id: string
-        }
-        Update: {
-          bot_id?: string
-          id?: string
-          server_id?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "server_bots_bot_id_fkey"
+            foreignKeyName: "posts_bot_id_fkey"
             columns: ["bot_id"]
             isOneToOne: false
             referencedRelation: "bots"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "server_bots_server_id_fkey"
-            columns: ["server_id"]
+            foreignKeyName: "posts_creator_id_fkey"
+            columns: ["creator_id"]
             isOneToOne: false
-            referencedRelation: "servers"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
       }
-      server_members: {
+      users: {
         Row: {
-          id: string
-          joined_at: string | null
-          server_id: string
-          user_id: string
-        }
-        Insert: {
-          id?: string
-          joined_at?: string | null
-          server_id: string
-          user_id: string
-        }
-        Update: {
-          id?: string
-          joined_at?: string | null
-          server_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "server_members_server_id_fkey"
-            columns: ["server_id"]
-            isOneToOne: false
-            referencedRelation: "servers"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      server_messages: {
-        Row: {
-          content: string
-          created_at: string | null
-          id: string
-          sender_id: string
-          sender_type: Database["public"]["Enums"]["sender_type"]
-          server_id: string
-        }
-        Insert: {
-          content?: string
-          created_at?: string | null
-          id?: string
-          sender_id: string
-          sender_type: Database["public"]["Enums"]["sender_type"]
-          server_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string | null
-          id?: string
-          sender_id?: string
-          sender_type?: Database["public"]["Enums"]["sender_type"]
-          server_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "server_messages_server_id_fkey"
-            columns: ["server_id"]
-            isOneToOne: false
-            referencedRelation: "servers"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      servers: {
-        Row: {
+          account_status: Database["public"]["Enums"]["account_status"] | null
           avatar_url: string | null
           created_at: string | null
-          description: string | null
+          email: string
+          google_id: string | null
           id: string
-          is_18_plus: boolean | null
+          is_premium: boolean | null
+          language: string | null
           name: string
-          owner_id: string
+          updated_at: string | null
         }
         Insert: {
+          account_status?: Database["public"]["Enums"]["account_status"] | null
           avatar_url?: string | null
           created_at?: string | null
-          description?: string | null
+          email: string
+          google_id?: string | null
           id?: string
-          is_18_plus?: boolean | null
-          name: string
-          owner_id: string
-        }
-        Update: {
-          avatar_url?: string | null
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          is_18_plus?: boolean | null
+          is_premium?: boolean | null
+          language?: string | null
           name?: string
-          owner_id?: string
-        }
-        Relationships: []
-      }
-      user_roles: {
-        Row: {
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Insert: {
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id: string
+          updated_at?: string | null
         }
         Update: {
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
-        }
-        Relationships: []
-      }
-      web_search_cache: {
-        Row: {
-          created_at: string | null
-          id: string
-          query: string
-          results: Json | null
-        }
-        Insert: {
+          account_status?: Database["public"]["Enums"]["account_status"] | null
+          avatar_url?: string | null
           created_at?: string | null
+          email?: string
+          google_id?: string | null
           id?: string
-          query: string
-          results?: Json | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: string
-          query?: string
-          results?: Json | null
+          is_premium?: boolean | null
+          language?: string | null
+          name?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -561,31 +623,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      can_view_nsfw: { Args: { _user_id: string }; Returns: boolean }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_server_member: {
-        Args: { _server_id: string; _user_id: string }
-        Returns: boolean
-      }
-      is_server_owner: {
-        Args: { _server_id: string; _user_id: string }
-        Returns: boolean
-      }
+      [_ in never]: never
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
-      author_type: "user" | "bot"
-      chat_mode: "normal" | "roleplay"
-      reaction_type: "like" | "love" | "laugh" | "wow" | "sad" | "angry"
-      report_status: "pending" | "resolved" | "ignored"
-      report_target_type: "user" | "bot" | "post" | "message" | "server"
-      sender_type: "user" | "bot"
+      account_status: "active" | "banned" | "deleted"
+      bot_privacy: "public" | "private"
+      image_type: "chat" | "post" | "diary"
+      message_type: "text" | "image" | "thought" | "system"
+      phone_event_type: "message" | "photo" | "status_update"
+      sender_type: "user" | "bot" | "system"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -713,13 +759,12 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
-      author_type: ["user", "bot"],
-      chat_mode: ["normal", "roleplay"],
-      reaction_type: ["like", "love", "laugh", "wow", "sad", "angry"],
-      report_status: ["pending", "resolved", "ignored"],
-      report_target_type: ["user", "bot", "post", "message", "server"],
-      sender_type: ["user", "bot"],
+      account_status: ["active", "banned", "deleted"],
+      bot_privacy: ["public", "private"],
+      image_type: ["chat", "post", "diary"],
+      message_type: ["text", "image", "thought", "system"],
+      phone_event_type: ["message", "photo", "status_update"],
+      sender_type: ["user", "bot", "system"],
     },
   },
 } as const
