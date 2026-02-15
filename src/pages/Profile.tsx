@@ -4,78 +4,64 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { User, Moon, Sun, LogOut, Settings } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+import { User, Moon, Sun, LogOut, Settings, Crown, Edit } from 'lucide-react';
 
 export default function Profile() {
-  const { user, profile, signOut, refreshProfile, isAdult } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const { t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
 
-  const handleNsfwToggle = async (enabled: boolean) => {
-    if (!isAdult && enabled) {
-      toast.error('Apenas maiores de 18 podem ativar o modo 18+');
-      return;
-    }
-    if (!user) return;
-    await supabase.from('profiles').update({ nsfw_enabled: enabled }).eq('user_id', user.id);
-    await refreshProfile();
-  };
-
   return (
-    <div className="p-4 space-y-6">
-      <div className="flex items-center gap-2">
-        <User className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold">{t('profile.title')}</h1>
-      </div>
-
-      {profile && (
-        <div className="flex items-center gap-4">
-          <Avatar className="h-16 w-16">
-            <AvatarImage src={profile.avatar_url} />
-            <AvatarFallback className="bg-primary text-primary-foreground text-xl">
-              {profile.name?.charAt(0)?.toUpperCase() || '?'}
+    <div className="flex flex-col min-h-full">
+      {/* Banner */}
+      <div className="relative h-36 bg-gradient-to-br from-primary/30 via-primary/10 to-background">
+        <div className="absolute -bottom-10 left-4">
+          <Avatar className="h-20 w-20 border-4 border-background shadow-xl">
+            <AvatarImage src={profile?.avatar_url || ''} />
+            <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
+              {profile?.name?.charAt(0)?.toUpperCase() || '?'}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <h2 className="text-lg font-semibold">{profile.name}</h2>
-            <p className="text-sm text-muted-foreground">{profile.email}</p>
-            <p className="text-xs text-muted-foreground">{t('profile.reputation')}: {profile.reputation_global}</p>
-          </div>
         </div>
-      )}
+      </div>
 
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Settings className="h-5 w-5 text-muted-foreground" />
-          <h3 className="font-semibold">{t('settings.title')}</h3>
-        </div>
-
-        {/* Theme toggle */}
-        <div className="flex items-center justify-between rounded-lg border border-border p-3">
+      <div className="pt-14 px-4 pb-4 space-y-6">
+        {/* User info */}
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
-            {theme === 'dark' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-            <span className="text-sm">{theme === 'dark' ? t('settings.darkMode') : t('settings.lightMode')}</span>
+            <h1 className="text-xl font-bold">{profile?.name || 'Usuário'}</h1>
+            {profile?.is_premium && <Crown className="h-4 w-4 text-yellow-500" />}
           </div>
-          <Switch checked={theme === 'dark'} onCheckedChange={toggleTheme} />
+          <p className="text-sm text-muted-foreground">{profile?.email}</p>
         </div>
 
-        {/* NSFW toggle */}
-        {isAdult && (
-          <div className="flex items-center justify-between rounded-lg border border-border p-3">
-            <div>
-              <span className="text-sm">{t('settings.nsfwMode')}</span>
-              <p className="text-xs text-muted-foreground">{t('settings.nsfwDescription')}</p>
-            </div>
-            <Switch checked={profile?.nsfw_enabled ?? false} onCheckedChange={handleNsfwToggle} />
-          </div>
-        )}
-
-        <Button variant="destructive" className="w-full" onClick={signOut}>
-          <LogOut className="h-4 w-4 mr-2" />
-          {t('auth.logout')}
+        <Button variant="outline" className="w-full rounded-xl gap-2">
+          <Edit className="h-4 w-4" /> {t('profile.editProfile')}
         </Button>
+
+        {/* Settings */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Settings className="h-5 w-5 text-muted-foreground" />
+            <h3 className="font-semibold">{t('settings.title')}</h3>
+          </div>
+
+          <div className="rounded-2xl border border-border/50 divide-y divide-border/50 overflow-hidden">
+            {/* Theme */}
+            <div className="flex items-center justify-between p-4 bg-card">
+              <div className="flex items-center gap-3">
+                {theme === 'dark' ? <Moon className="h-4 w-4 text-primary" /> : <Sun className="h-4 w-4 text-primary" />}
+                <span className="text-sm">{theme === 'dark' ? t('settings.darkMode') : t('settings.lightMode')}</span>
+              </div>
+              <Switch checked={theme === 'dark'} onCheckedChange={toggleTheme} />
+            </div>
+          </div>
+
+          <Button variant="destructive" className="w-full rounded-xl" onClick={signOut}>
+            <LogOut className="h-4 w-4 mr-2" />
+            {t('auth.logout')}
+          </Button>
+        </div>
       </div>
     </div>
   );
