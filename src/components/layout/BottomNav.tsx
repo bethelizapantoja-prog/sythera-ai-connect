@@ -17,8 +17,8 @@ export function BottomNav() {
   const { t } = useLanguage();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 backdrop-blur-md safe-area-bottom">
-      <div className="flex items-center justify-around px-2 py-1">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/95 backdrop-blur-xl safe-area-bottom">
+      <div className="flex items-center justify-around px-2 py-1.5">
         {navItems.map(({ key, icon: Icon, path, labelKey }) => {
           const isActive = location.pathname.startsWith(path);
           return (
@@ -26,13 +26,16 @@ export function BottomNav() {
               key={key}
               onClick={() => navigate(path)}
               className={cn(
-                'flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-200 min-w-[60px]',
+                'flex flex-col items-center gap-0.5 px-3 py-2 rounded-2xl transition-all duration-300 min-w-[56px]',
                 isActive
                   ? 'text-primary'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              <Icon className={cn('h-5 w-5', isActive && 'drop-shadow-[0_0_6px_hsl(var(--primary))]')} />
+              <Icon className={cn(
+                'h-5 w-5 transition-all duration-300',
+                isActive && 'scale-110 drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]'
+              )} />
               <span className="text-[10px] font-medium leading-none">{t(labelKey)}</span>
             </button>
           );

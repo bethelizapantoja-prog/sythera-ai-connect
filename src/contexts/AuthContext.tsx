@@ -2,31 +2,28 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { User, Session } from '@supabase/supabase-js';
 
-interface Profile {
+interface UserProfile {
   id: string;
-  user_id: string;
-  name: string;
   email: string;
-  date_of_birth: string;
-  gender: string;
-  bio: string;
+  name: string;
   avatar_url: string;
-  reputation_global: number;
-  followers_fake: number;
-  nsfw_enabled: boolean;
-  preferred_language: string;
+  google_id: string | null;
+  language: string;
+  is_premium: boolean;
+  account_status: 'active' | 'banned' | 'deleted';
+  created_at: string;
+  updated_at: string;
 }
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
-  profile: Profile | null;
+  profile: UserProfile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, metadata: Record<string, any>) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
-  isAdult: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,16 +31,16 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
     const { data } = await supabase
-      .from('profiles')
+      .from('users')
       .select('*')
-      .eq('user_id', userId)
+      .eq('id', userId)
       .maybeSingle();
-    setProfile(data as Profile | null);
+    setProfile(data as UserProfile | null);
   };
 
   useEffect(() => {
@@ -100,12 +97,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (user) await fetchProfile(user.id);
   };
 
-  const isAdult = profile
-    ? new Date().getFullYear() - new Date(profile.date_of_birth).getFullYear() >= 18
-    : false;
-
   return (
-    <AuthContext.Provider value={{ user, session, profile, loading, signIn, signUp, signOut, refreshProfile, isAdult }}>
+    <AuthContext.Provider value={{ user, session, profile, loading, signIn, signUp, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );
